@@ -7,8 +7,6 @@ import LoadingScreen from './screens/LoadingScreen';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import RegisterScreen from './screens/RegisterScreen';
-import MessageScreen from './screens/MessageScreen';
-import NotificationScreen from './screens/NotificationScreen';
 import PostScreen from './screens/PostScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import * as firebase from 'firebase';
@@ -26,12 +24,6 @@ const AppContainer = createStackNavigator(
             tabBarIcon: ({ tintColor }) => <Ionicons name="ios-home" size={24} color={tintColor}></Ionicons>
           }
         },
-        Message: {
-          screen: MessageScreen,
-          navigationOptions: {
-            tabBarIcon: ({ tintColor }) => <Ionicons name="ios-chatboxes" size={24} color={tintColor}></Ionicons>
-          }
-        },
         Post: {
           screen: PostScreen,
           navigationOptions: {
@@ -46,12 +38,6 @@ const AppContainer = createStackNavigator(
                 shadowOpacity: 0.3
               }}
             ></Ionicons>
-          }
-        },
-        Notification: {
-          screen: NotificationScreen,
-          navigationOptions: {
-            tabBarIcon: ({ tintColor }) => <Ionicons name="ios-notifications" size={24} color={tintColor}></Ionicons>
           }
         },
         Profile: {
@@ -88,7 +74,7 @@ const AppContainer = createStackNavigator(
   {
     mode: "modal",
     headerMode: "none",
-    initialRouteName: "postModal"
+    
   }
 )
 
@@ -98,7 +84,9 @@ const AppContainer = createStackNavigator(
 const AuthStack = createStackNavigator({
   Login: LoginScreen,
   Register: RegisterScreen
-})
+}
+
+);
 
 export default createAppContainer(
   createSwitchNavigator(
