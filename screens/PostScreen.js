@@ -5,6 +5,8 @@ import Contants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import Fire from "../Fire";
 import * as ImagePicker from 'expo-image-picker';
+import UserPermissions from '../utilities/UserPermissions';
+
 
 const firebase = require("firebase");
 require("firebase/firestore");
@@ -16,20 +18,13 @@ export default class PostScreen extends React.Component{
     };
 
     componentDidMount(){
-        this.getPhotoPermissions();
+        UserPermissions.getCameraPermission();
     }
 
-    getPhotoPermissions = async () => {
-        if(Contants.platform.android) {
-            const {status} = await Permissions.askAsync(Permissions.CAMERA_ROLL)
-
-            if(status != "granted") {
-                alert("We need permission to access your camera roll");
-            }
-        }
-    };
+    
 
     handlePost = () => {
+        
         Fire.shared
             .addPost({ text: this.state.text.trim(), localUri: this.state.image})
             .then(ref => {
@@ -50,6 +45,7 @@ export default class PostScreen extends React.Component{
         });
 
         if (!result.cancelled) {
+            console.log(result.uri)
             this.setState({image: result.uri});
         }
 
@@ -59,7 +55,7 @@ export default class PostScreen extends React.Component{
         return(
             <SafeAreaView style={styles.container}>
                 <View style={styles.header}>
-                <TouchableOpacity onPress={() => this.props.navigation.goBack}>
+                <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                     <Ionicons name="md-arrow-back" size={24} color="#D8D9DB"></Ionicons>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={this.handlePost}>
